@@ -23,7 +23,7 @@ public class ProfileRepositoryImplTest {
     }
 
 
-    private Profile buildSeeker(String name, Gender gender) {
+    private Profile buildProfile(String name, Gender gender) {
         Profile profile = new Profile();
         profile.setName(name);
         profile.setGender(gender);
@@ -36,8 +36,8 @@ public class ProfileRepositoryImplTest {
 
 
     @Test
-    void testSave_assignsIdToNewSeeker() {
-        Profile profile = buildSeeker("Ada", Gender.FEMALE);
+    void testSave_assignsIdToNewProfile() {
+        Profile profile = buildProfile("Ada", Gender.FEMALE);
 
         Profile saved = profileRepository.save(profile);
 
@@ -46,9 +46,9 @@ public class ProfileRepositoryImplTest {
     }
 
     @Test
-    void testSave_assignsUniqueIdsToMultipleSeekers() {
-        Profile first  = profileRepository.save(buildSeeker("Ada",   Gender.FEMALE));
-        Profile second = profileRepository.save(buildSeeker("Emeka", Gender.MALE));
+    void testSave_assignsUniqueIdsToMultipleProfile() {
+        Profile first  = profileRepository.save(buildProfile("Ada",   Gender.FEMALE));
+        Profile second = profileRepository.save(buildProfile("Emeka", Gender.MALE));
 
         assertNotEquals(first.getId(), second.getId(),
                 "Two different Seekers must not share the same id");
@@ -59,16 +59,16 @@ public class ProfileRepositoryImplTest {
     void testSave_newSeeker_increasesCount() {
         assertEquals(0, profileRepository.count(), "Repository should start empty");
 
-        profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+        profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
         assertEquals(1, profileRepository.count(), "Count should be 1 after saving one Seeker");
     }
 
 
     @Test
-    void testSave_existingSeeker_updatesStoredData() {
+    void testSave_existingProfile_updatesStoredData() {
         // First, create the Seeker (id assigned by repository)
-        Profile saved = profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+        Profile saved = profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
         // Change some fields on the returned object
         saved.setName("Ada Updated");
@@ -86,8 +86,8 @@ public class ProfileRepositoryImplTest {
 
 
     @Test
-    void testSave_existingSeeker_doesNotIncreaseCount() {
-        Profile saved = profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+    void testSave_existingProfile_doesNotIncreaseCount() {
+        Profile saved = profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
         saved.setName("Ada v2");
         profileRepository.save(saved); // update
@@ -98,8 +98,8 @@ public class ProfileRepositoryImplTest {
 
 
     @Test
-    void testSave_existingSeeker_oldDataIsNoLongerStored() {
-        Profile saved = profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+    void testSave_existingProfile_oldDataIsNoLongerStored() {
+        Profile saved = profileRepository.save(buildProfile("Ada", Gender.FEMALE));
         int id = saved.getId();
 
         saved.setName("NewName");
@@ -111,7 +111,7 @@ public class ProfileRepositoryImplTest {
 
     @Test
     void testFindById_returnsSavedSeeker() {
-        Profile saved = profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+        Profile saved = profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
         Profile found = profileRepository.findById(saved.getId());
 
@@ -129,7 +129,7 @@ public class ProfileRepositoryImplTest {
     }
 
     @Test
-    void testFindAll_returnsEmptyListWhenNoSeekersExist() {
+    void testFindAll_returnsEmptyListWhenNoProfileExist() {
         List<Profile> all = profileRepository.findAll();
 
         assertNotNull(all,        "findAll() should never return null");
@@ -138,10 +138,10 @@ public class ProfileRepositoryImplTest {
 
 
     @Test
-    void testFindAll_returnsAllSavedSeekers() {
-        profileRepository.save(buildSeeker("Ada",   Gender.FEMALE));
-        profileRepository.save(buildSeeker("Emeka", Gender.MALE));
-        profileRepository.save(buildSeeker("Zara",  Gender.FEMALE));
+    void testFindAll_returnsAllSavedProfile() {
+        profileRepository.save(buildProfile("Ada",   Gender.FEMALE));
+        profileRepository.save(buildProfile("Emeka", Gender.MALE));
+        profileRepository.save(buildProfile("Zara",  Gender.FEMALE));
 
         List<Profile> all = profileRepository.findAll();
 
@@ -151,7 +151,7 @@ public class ProfileRepositoryImplTest {
 
     @Test
     void testFindAll_returnsDefensiveCopy() {
-        profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+        profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
         List<Profile> all = profileRepository.findAll();
         all.clear(); // clear the returned list
@@ -162,8 +162,8 @@ public class ProfileRepositoryImplTest {
 
 
     @Test
-    void testDeleteById_removesSeeker() {
-        Profile saved = profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+    void testDeleteById_removesProfile() {
+        Profile saved = profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
         profileRepository.deleteById(saved.getId());
 
@@ -174,8 +174,8 @@ public class ProfileRepositoryImplTest {
 
     @Test
     void testDeleteById_decreasesCount() {
-        Profile saved = profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
-        profileRepository.save(buildSeeker("Emeka", Gender.MALE));
+        Profile saved = profileRepository.save(buildProfile("Ada", Gender.FEMALE));
+        profileRepository.save(buildProfile("Emeka", Gender.MALE));
 
         profileRepository.deleteById(saved.getId());
 
@@ -186,7 +186,7 @@ public class ProfileRepositoryImplTest {
 
     @Test
     void testDeleteById_doesNothingForNonExistentId() {
-        profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+        profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
         assertDoesNotThrow(() -> profileRepository.deleteById(999),
                 "deleteById() should not throw when the id does not exist");
@@ -197,10 +197,10 @@ public class ProfileRepositoryImplTest {
 
 
     @Test
-    void testDeleteAll_removesAllSeekers() {
-        profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
-        profileRepository.save(buildSeeker("Emeka", Gender.MALE));
-        profileRepository.save(buildSeeker("Zara", Gender.FEMALE));
+    void testDeleteAll_removesAllProfile() {
+        profileRepository.save(buildProfile("Ada", Gender.FEMALE));
+        profileRepository.save(buildProfile("Emeka", Gender.MALE));
+        profileRepository.save(buildProfile("Zara", Gender.FEMALE));
 
         profileRepository.deleteAll();
 
@@ -222,10 +222,10 @@ public class ProfileRepositoryImplTest {
 
     @Test
     void testDeleteAll_thenSave_stillWorks() {
-        profileRepository.save(buildSeeker("Ada", Gender.FEMALE));
+        profileRepository.save(buildProfile("Ada", Gender.FEMALE));
         profileRepository.deleteAll();
 
-        Profile savedAgain = profileRepository.save(buildSeeker("New Seeker", Gender.MALE));
+        Profile savedAgain = profileRepository.save(buildProfile("New Profile", Gender.MALE));
 
         assertNotNull(savedAgain, "save() should still work after deleteAll()");
         assertTrue(savedAgain.getId() > 0, "Saved Seeker should still receive a valid id");
@@ -240,11 +240,11 @@ public class ProfileRepositoryImplTest {
 
 
     @Test
-    void testCount_reflectsNumberOfSavedSeekers() {
-        profileRepository.save(buildSeeker("Ada",   Gender.FEMALE));
-        profileRepository.save(buildSeeker("Emeka", Gender.MALE));
-        profileRepository.save(buildSeeker("Zara",  Gender.FEMALE));
+    void testCount_reflectsNumberOfSavedProfile() {
+        profileRepository.save(buildProfile("Ada",   Gender.FEMALE));
+        profileRepository.save(buildProfile("Emeka", Gender.MALE));
+        profileRepository.save(buildProfile("Zara",  Gender.FEMALE));
 
-        assertEquals(3, profileRepository.count(), "Count must equal the number of saved Seekers");
+        assertEquals(3, profileRepository.count(), "Count must equal the number of saved Profile");
     }
 }
