@@ -41,8 +41,8 @@ public class ProfileRepositoryImplTest {
 
         Profile saved = profileRepository.save(profile);
 
-        assertNotNull(saved, "Saved Seeker should not be null");
-        assertEquals(1, saved.getId(), "Saved Seeker should have an id greater than 0");
+        assertNotNull(saved, "Saved Profile should not be null");
+        assertEquals(1, saved.getId(), "Saved Profile should have an id greater than 0");
     }
 
     @Test
@@ -51,33 +51,30 @@ public class ProfileRepositoryImplTest {
         Profile second = profileRepository.save(buildProfile("Emeka", Gender.MALE));
 
         assertNotEquals(first.getId(), second.getId(),
-                "Two different Seekers must not share the same id");
+                "Two different Profile must not share the same id");
     }
 
 
     @Test
-    void testSave_newSeeker_increasesCount() {
+    void testSave_newProfile_increasesCount() {
         assertEquals(0, profileRepository.count(), "Repository should start empty");
 
         profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
-        assertEquals(1, profileRepository.count(), "Count should be 1 after saving one Seeker");
+        assertEquals(1, profileRepository.count(), "Count should be 1 after saving one Profile");
     }
 
 
     @Test
     void testSave_existingProfile_updatesStoredData() {
-        // First, create the Seeker (id assigned by repository)
         Profile saved = profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
-        // Change some fields on the returned object
         saved.setName("Ada Updated");
         saved.setCurrentLocation("Abuja");
 
-        // Pass the modified Seeker back to save() — it carries the id now
         Profile updated = profileRepository.save(saved);
 
-        assertNotNull(updated, "save() should return the updated Seeker");
+        assertNotNull(updated, "save() should return the updated Profile");
         assertEquals("Ada Updated", profileRepository.findById(saved.getId()).getName(),
                 "Name should reflect the update");
         assertEquals("Abuja", profileRepository.findById(saved.getId()).getCurrentLocation(),
@@ -110,12 +107,12 @@ public class ProfileRepositoryImplTest {
     }
 
     @Test
-    void testFindById_returnsSavedSeeker() {
+    void testFindById_returnsSavedProfile() {
         Profile saved = profileRepository.save(buildProfile("Ada", Gender.FEMALE));
 
         Profile found = profileRepository.findById(saved.getId());
 
-        assertNotNull(found, "Should find the Seeker that was saved");
+        assertNotNull(found, "Should find the Profile that was saved");
         assertEquals(saved.getId(),   found.getId(),   "Id should match");
         assertEquals(saved.getName(), found.getName(), "Name should match");
     }
@@ -125,7 +122,7 @@ public class ProfileRepositoryImplTest {
     void testFindById_returnsNullForNonExistentId() {
         Profile found = profileRepository.findById(999);
 
-        assertNull(found, "Should return null when no Seeker has the given id");
+        assertNull(found, "Should return null when no Profile has the given id");
     }
 
     @Test
@@ -133,7 +130,7 @@ public class ProfileRepositoryImplTest {
         List<Profile> all = profileRepository.findAll();
 
         assertNotNull(all,        "findAll() should never return null");
-        assertTrue(all.isEmpty(), "List should be empty when no Seekers have been saved");
+        assertTrue(all.isEmpty(), "List should be empty when no Profile have been saved");
     }
 
 
@@ -145,7 +142,7 @@ public class ProfileRepositoryImplTest {
 
         List<Profile> all = profileRepository.findAll();
 
-        assertEquals(3, all.size(), "findAll() should return every saved Seeker");
+        assertEquals(3, all.size(), "findAll() should return every saved Profile");
     }
 
 
@@ -168,7 +165,7 @@ public class ProfileRepositoryImplTest {
         profileRepository.deleteById(saved.getId());
 
         assertNull(profileRepository.findById(saved.getId()),
-                "Deleted Seeker should no longer be retrievable");
+                "Deleted Profile should no longer be retrievable");
     }
 
 
@@ -180,7 +177,7 @@ public class ProfileRepositoryImplTest {
         profileRepository.deleteById(saved.getId());
 
         assertEquals(1, profileRepository.count(),
-                "Count should drop to 1 after deleting one of two Seekers");
+                "Count should drop to 1 after deleting one of two Profile");
     }
 
 
@@ -192,7 +189,7 @@ public class ProfileRepositoryImplTest {
                 "deleteById() should not throw when the id does not exist");
 
         assertEquals(1, profileRepository.count(),
-                "Existing Seekers should be unaffected by a delete of a non-existent id");
+                "Existing Profile should be unaffected by a delete of a non-existent id");
     }
 
 
@@ -228,9 +225,9 @@ public class ProfileRepositoryImplTest {
         Profile savedAgain = profileRepository.save(buildProfile("New Profile", Gender.MALE));
 
         assertNotNull(savedAgain, "save() should still work after deleteAll()");
-        assertTrue(savedAgain.getId() > 0, "Saved Seeker should still receive a valid id");
+        assertTrue(savedAgain.getId() > 0, "Saved Profile should still receive a valid id");
         assertEquals(1, profileRepository.count(),
-                "Count should be 1 after saving one Seeker post-deleteAll()");
+                "Count should be 1 after saving one Profile post-deleteAll()");
     }
 
     @Test
