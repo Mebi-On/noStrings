@@ -1,4 +1,4 @@
-package noStrings.semicolon.data.models;
+package semicolon.noStrings.data.models;
 
 public class Seeker {
     private int id;

@@ -1,4 +1,4 @@
-package noStrings.semicolon.data.models;
+package semicolon.noStrings.data.models;
 
 public enum Complexion {
     DARK, LIGHT, EBONY;

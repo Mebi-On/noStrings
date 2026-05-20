@@ -2,11 +2,11 @@ package data.repositories;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import noStrings.semicolon.data.models.Complexion;
-import noStrings.semicolon.data.models.Gender;
-import noStrings.semicolon.data.models.Profile;
-import noStrings.semicolon.data.repositories.ProfileRepository;
-import noStrings.semicolon.data.repositories.ProfileRepositoryImpl;
+import semicolon.noStrings.data.models.Complexion;
+import semicolon.noStrings.data.models.Gender;
+import semicolon.noStrings.data.models.Profile;
+import semicolon.noStrings.data.repositories.ProfileRepository;
+import semicolon.noStrings.data.repositories.ProfileRepositoryImpl;
 
 import java.time.LocalDate;
 import java.util.List;

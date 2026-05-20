@@ -1,7 +1,7 @@
 package data.models;
 
 import org.junit.jupiter.api.Test;
-import noStrings.semicolon.data.models.*;
+import semicolon.noStrings.data.models.*;
 
 import java.time.LocalDate;
 

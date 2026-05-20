@@ -1,6 +1,5 @@
-package noStrings.semicolon.data.repositories;
+package semicolon.noStrings.data.repositories;
 
-import noStrings.semicolon.data.models.Seeker;
 import semicolon.noStrings.data.models.Seeker;
 
 import java.util.ArrayList;

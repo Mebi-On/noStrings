@@ -2,9 +2,9 @@ package data.repositories;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import noStrings.semicolon.data.models.Seeker;
-import noStrings.semicolon.data.repositories.SeekerRepository;
-import noStrings.semicolon.data.repositories.SeekerRepositoryImpl;
+import semicolon.noStrings.data.models.Seeker;
+import semicolon.noStrings.data.repositories.SeekerRepository;
+import semicolon.noStrings.data.repositories.SeekerRepositoryImpl;
 
 import java.util.List;
 

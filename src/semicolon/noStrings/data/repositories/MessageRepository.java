@@ -1,4 +1,4 @@
-package noStrings.semicolon.data.repositories;
+package semicolon.noStrings.data.repositories;
 
 import semicolon.noStrings.data.models.Message;
 

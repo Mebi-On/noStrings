@@ -1,6 +1,5 @@
-package noStrings.semicolon.data.repositories;
+package semicolon.noStrings.data.repositories;
 
-import noStrings.semicolon.data.models.Profile;
 import semicolon.noStrings.data.models.Profile;
 
 import java.util.List;
